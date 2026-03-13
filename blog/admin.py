@@ -2,7 +2,13 @@ from django.contrib import admin
 from .models import Post
 from .models import Comment, Post
 
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+        list_display = ['name', 'email', 'post', 'created', 'active']
+        list_filter = ['active', 'created', 'updated']
+        search_fields = ['name', 'email', 'body']
 
+        
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'author', 'publish', 'status']
@@ -16,8 +22,3 @@ class PostAdmin(admin.ModelAdmin):
     # This is a great addition for Django 5.0+ to show filter counts!
     show_facets = admin.ShowFacets.ALWAYS
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-        list_display = ['name', 'email', 'post', 'created', 'active']
-        list_filter = ['active', 'created', 'updated']
-        search_fields = ['name', 'email', 'body']
